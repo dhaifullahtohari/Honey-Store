@@ -3,21 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <title>تسجيل الدخول</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    form {
+      background-color: #fff;
+      padding: 30px;
+      max-width: 400px;
+      margin: 40px auto;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      text-align: right;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #d4a83f;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #c29830;
+    }
+
+    .message {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
+
+  {% include 'header.html' %}
+
   <h2>تسجيل الدخول</h2>
   <form method="post">
     {% csrf_token %}
-    <label>اسم المستخدم:</label><br>
-    <input type="text" name="username" required><br><br>
+    <label>اسم المستخدم:</label>
+    <input type="text" name="username" required>
 
-    <label>كلمة المرور:</label><br>
-    <input type="password" name="password" required><br><br>
+    <label>كلمة المرور:</label>
+    <input type="password" name="password" required>
 
     <button type="submit">دخول</button>
+
+    {% for message in messages %}
+      <p class="message">{{ message }}</p>
+    {% endfor %}
   </form>
-  {% for message in messages %}
-    <p style="color:red;">{{ message }}</p>
-  {% endfor %}
+
+  {% include 'footer.html' %}
+
 </body>
 </html>

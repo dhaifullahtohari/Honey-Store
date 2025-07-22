@@ -4,10 +4,20 @@
     <img src="/static/images/honey store logo.jpeg" alt="شعار المتجر" style="height: 60px;">
     <h1 style="margin: 0 10px; font-size: 26px; color: #1d1d1d;">Honey Store</h1>
   </div>
-  <nav>
+
+  <nav style="display: flex; align-items: center;">
     <a href="/" style="margin: 0 15px; color: #1d1d1d; text-decoration: none;">الرئيسية</a>
     <a href="/products/" style="margin: 0 15px; color: #1d1d1d; text-decoration: none;">المنتجات</a>
     <a href="/cart/" style="margin: 0 15px; color: #1d1d1d; text-decoration: none;">السلة</a>
     <a href="/accounts/" style="margin: 0 15px; color: #1d1d1d; text-decoration: none;">الحساب</a>
+
+    {% if user.is_authenticated %}
+      <span style="margin: 0 10px; font-weight: bold; color: green;">مرحبًا {{ user.username }}</span>
+      <a href="{% url 'accounts:logout' %}" style="margin: 0 10px;">
+        <button style="background-color: #d9534f; color: white; border: none; padding: 8px 18px; border-radius: 25px; cursor: pointer; font-size: 14px;">
+          تسجيل الخروج
+        </button>
+      </a>
+    {% endif %}
   </nav>
 </div>

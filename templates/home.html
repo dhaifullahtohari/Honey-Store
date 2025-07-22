@@ -26,7 +26,7 @@
       color: #333;
     }
     .btn {
-      margin-top: 20px;
+      margin: 10px;
       background-color: #d4a83f;
       color: white;
       border: none;
@@ -34,6 +34,7 @@
       font-size: 16px;
       border-radius: 30px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
     .btn:hover {
       background-color: #c29830;
@@ -47,7 +48,10 @@
   <section class="hero">
     <h2>مرحبًا بكم في متجر Honey Store</h2>
     <p>متخصصون في بيع أجود أنواع العسل الطبيعي ومشتقاته</p>
+
     <a href="/products/"><button class="btn">تصفح المنتجات</button></a>
+    <a href="{% url 'accounts:login' %}"><button class="btn">تسجيل الدخول</button></a>
+    <a href="{% url 'accounts:signup' %}"><button class="btn">إنشاء حساب</button></a>
   </section>
 
   {% include 'footer.html' %}

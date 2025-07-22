@@ -1,0 +1,56 @@
+<!-- home.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>Honey Store - الصفحة الرئيسية</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background-color: #ffffff;
+      color: #1d1d1d;
+    }
+    .hero {
+      background: linear-gradient(to left, #fff2cc, #d4a83f);
+      padding: 80px 20px;
+      text-align: center;
+    }
+    .hero h2 {
+      font-size: 40px;
+      margin-bottom: 15px;
+      color: #1d1d1d;
+    }
+    .hero p {
+      font-size: 18px;
+      color: #333;
+    }
+    .btn {
+      margin-top: 20px;
+      background-color: #d4a83f;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #c29830;
+    }
+  </style>
+</head>
+<body>
+
+  {% include 'header.html' %}
+
+  <section class="hero">
+    <h2>مرحبًا بكم في متجر Honey Store</h2>
+    <p>متخصصون في بيع أجود أنواع العسل الطبيعي ومشتقاته</p>
+    <a href="/products/"><button class="btn">تصفح المنتجات</button></a>
+  </section>
+
+  {% include 'footer.html' %}
+
+</body>
+</html>

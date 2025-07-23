@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import cloudinary
 
 # المسار الأساسي للمشروع
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -7,10 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # مفتاح التشفير (⚠️ لا تستخدمه كما هو في الإنتاج)
 SECRET_KEY = 'django-insecure-k2czfp44glh9!(^^jy%no*&gagn#9movpim@(ov*p)&dipuku3'
 
-# وضع التطوير (⚠️ اجعله False في الإنتاج)
+# وضع التطوير
 DEBUG = True
 
-# المضيفون المسموح لهم بالوصول للموقع
+# المضيفون المسموح لهم
 ALLOWED_HOSTS = []
 
 # التطبيقات المثبتة
@@ -22,7 +23,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # التطبيقات الخاصة بالمشروع
+    # خدمات Cloudinary
+    'cloudinary',
+    'cloudinary_storage',
+
+    # تطبيقات المشروع
     'catalog',
     'accounts',
     'cart',
@@ -40,14 +45,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# ملف URLs الرئيسي للمشروع
+# ملف الروابط الرئيسي
 ROOT_URLCONF = 'HoneyStore.urls'
 
-# إعداد القوالب (Templates)
+# إعداد القوالب
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # ← مجلد القوالب العام
+        'DIRS': [BASE_DIR / 'templates'],  # مجلد القوالب العام
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -63,7 +68,7 @@ TEMPLATES = [
 # إعداد WSGI
 WSGI_APPLICATION = 'HoneyStore.wsgi.application'
 
-# إعداد قاعدة البيانات
+# قاعدة البيانات
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -86,14 +91,25 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# إعداد ملفات static
+# إعداد static
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # ← مهم لتجميع الملفات عند تنفيذ collectstatic
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# إعداد ملفات media
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# إعداد Cloudinary لتخزين ملفات media
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dq4ntpesw',
+    'API_KEY': '873815379615733',
+    'API_SECRET': 'qk1vJ94gOOQ9pefYKM1CwKMDhbU',  # ⚠️ للتطوير فقط
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# نوع المفتاح الافتراضي للجداول الجديدة
+# تفعيل إعداد Cloudinary عند تشغيل المشروع
+cloudinary.config(
+    cloud_name=CLOUDINARY_STORAGE['CLOUD_NAME'],
+    api_key=CLOUDINARY_STORAGE['API_KEY'],
+    api_secret=CLOUDINARY_STORAGE['API_SECRET']
+)
+
+# المفتاح الافتراضي للحقول التلقائية
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

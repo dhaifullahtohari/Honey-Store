@@ -4,11 +4,13 @@ import os
 # المسار الأساسي للمشروع
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# مفتاح التشفير (لا تستخدمه كما هو في الإنتاج)
+# مفتاح التشفير (⚠️ لا تستخدمه كما هو في الإنتاج)
 SECRET_KEY = 'django-insecure-k2czfp44glh9!(^^jy%no*&gagn#9movpim@(ov*p)&dipuku3'
 
+# وضع التطوير (⚠️ اجعله False في الإنتاج)
 DEBUG = True
 
+# المضيفون المسموح لهم بالوصول للموقع
 ALLOWED_HOSTS = []
 
 # التطبيقات المثبتة
@@ -27,7 +29,7 @@ INSTALLED_APPS = [
     'orders',
 ]
 
-# الوسيطات
+# الوسيطات (Middleware)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -38,13 +40,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# ملف URLs الرئيسي للمشروع
 ROOT_URLCONF = 'HoneyStore.urls'
 
-# إعداد مجلد القوالب
+# إعداد القوالب (Templates)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # ← مهم لمسار التامبليت المخصص
+        'DIRS': [BASE_DIR / 'templates'],  # ← مجلد القوالب العام
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -57,9 +60,10 @@ TEMPLATES = [
     },
 ]
 
+# إعداد WSGI
 WSGI_APPLICATION = 'HoneyStore.wsgi.application'
 
-# قاعدة البيانات
+# إعداد قاعدة البيانات
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -85,10 +89,11 @@ USE_TZ = True
 # إعداد ملفات static
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # ← مهم لتجميع الملفات عند تنفيذ collectstatic
 
 # إعداد ملفات media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# إعداد نوع المفتاح الافتراضي
+# نوع المفتاح الافتراضي للجداول الجديدة
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

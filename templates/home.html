@@ -1,4 +1,3 @@
-<!-- home.html -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -11,20 +10,24 @@
       background-color: #ffffff;
       color: #1d1d1d;
     }
+
     .hero {
       background: linear-gradient(to left, #fff2cc, #d4a83f);
       padding: 80px 20px;
       text-align: center;
     }
+
     .hero h2 {
       font-size: 40px;
       margin-bottom: 15px;
       color: #1d1d1d;
     }
+
     .hero p {
       font-size: 18px;
       color: #333;
     }
+
     .btn {
       margin: 10px;
       background-color: #d4a83f;
@@ -36,8 +39,54 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
+
     .btn:hover {
       background-color: #c29830;
+    }
+
+    .product-banner {
+      background-color: #f9f5e9;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .product-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .product-card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      width: 250px;
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .product-card h3 {
+      margin: 10px 0 5px;
+      color: #8b4513;
+    }
+
+    .product-card .price {
+      color: #d2691e;
+      font-weight: bold;
+      margin-top: 8px;
     }
   </style>
 </head>
@@ -49,9 +98,22 @@
     <h2>مرحبًا بكم في متجر Honey Store</h2>
     <p>متخصصون في بيع أجود أنواع العسل الطبيعي ومشتقاته</p>
 
-    <a href="/products/"><button class="btn">تصفح المنتجات</button></a>
+    <a href="#products"><button class="btn">تصفح المنتجات</button></a>
     <a href="{% url 'accounts:login' %}"><button class="btn">تسجيل الدخول</button></a>
     <a href="{% url 'accounts:signup' %}"><button class="btn">إنشاء حساب</button></a>
+  </section>
+
+  <section class="product-banner" id="products">
+    <h2>منتجات مختارة</h2>
+    <div class="product-list">
+      {% for product in products %}
+        <div class="product-card">
+          <img src="{{ product.image.url }}" alt="{{ product.name }}">
+          <h3>{{ product.name }}</h3>
+          <div class="price">{{ product.price }} ريال</div>
+        </div>
+      {% endfor %}
+    </div>
   </section>
 
   {% include 'footer.html' %}

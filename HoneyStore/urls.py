@@ -4,15 +4,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    # لوحة التحكم
     path('admin/', admin.site.urls),
 
-    # توجيه التطبيقات
-    path('', include('catalog.urls')),
-    path('accounts/', include('accounts.urls')),
-    path('cart/', include('cart.urls')),
-    path('orders/', include('orders.urls')),
+    # توجيه روابط التطبيقات
+    path('', include('catalog.urls')),       # الصفحة الرئيسية والمنتجات
+    path('accounts/', include('accounts.urls')),  # تسجيل الدخول والتسجيل
+    path('cart/', include('cart.urls')),          # سلة المشتريات
+    path('orders/', include('orders.urls')),      # الطلبات
 ]
 
-# دعم ملفات media أثناء التطوير
+# دعم عرض ملفات media أثناء التطوير
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

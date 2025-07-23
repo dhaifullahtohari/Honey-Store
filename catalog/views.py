@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from .models import Product
 
 def home(request):
-    return render(request, 'home.html')
+    products = Product.objects.filter(available=True)[:6]  # فقط 6 منتجات للعرض السريع
+    return render(request, 'home.html', {'products': products})

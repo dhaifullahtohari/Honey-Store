@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
 from catalog.models import Product
 
@@ -10,7 +11,7 @@ class Order(models.Model):
         ('completed', 'مكتمل'),
     ]
 
-    user = models.ForeignKey(User, verbose_name="العميل", on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField("تاريخ الإنشاء", auto_now_add=True)
     status = models.CharField("الحالة", max_length=20, choices=STATUS_CHOICES, default='pending')
 

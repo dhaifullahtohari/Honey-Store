@@ -2,48 +2,54 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>إنشاء حساب</title>
+  <title>إنشاء حساب جديد</title>
   <style>
     body {
       font-family: 'Cairo', sans-serif;
-      background-color: #f9f9f9;
+      background-color: #f4f4f4;
       margin: 0;
       padding: 0;
-      text-align: center;
     }
 
     form {
       background-color: #fff;
+      max-width: 450px;
+      margin: 50px auto;
       padding: 30px;
-      max-width: 400px;
-      margin: 40px auto;
-      border: 1px solid #ddd;
       border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
     }
 
     label {
       display: block;
-      text-align: right;
       margin-bottom: 5px;
-      color: #333;
+      color: #444;
+      text-align: right;
     }
 
     input {
       width: 100%;
       padding: 10px;
       margin-bottom: 15px;
-      border-radius: 5px;
       border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 15px;
     }
 
     button {
+      width: 100%;
       background-color: #d4a83f;
       color: white;
       border: none;
-      padding: 12px 20px;
+      padding: 12px;
       font-size: 16px;
-      border-radius: 25px;
+      border-radius: 30px;
       cursor: pointer;
     }
 
@@ -53,6 +59,7 @@
 
     .message {
       color: red;
+      text-align: center;
       margin-top: 10px;
     }
   </style>
@@ -61,11 +68,18 @@
 
   {% include 'header.html' %}
 
-  <h2>إنشاء حساب جديد</h2>
   <form method="post">
     {% csrf_token %}
+    <h2>إنشاء حساب</h2>
+
     <label>اسم المستخدم:</label>
     <input type="text" name="username" required>
+
+    <label>رقم الجوال:</label>
+    <input type="text" name="mobile" required>
+
+    <label>البريد الإلكتروني:</label>
+    <input type="email" name="email" required>
 
     <label>كلمة المرور:</label>
     <input type="password" name="password1" required>
@@ -73,7 +87,7 @@
     <label>تأكيد كلمة المرور:</label>
     <input type="password" name="password2" required>
 
-    <button type="submit">إنشاء حساب</button>
+    <button type="submit">إنشاء الحساب</button>
 
     {% for message in messages %}
       <p class="message">{{ message }}</p>

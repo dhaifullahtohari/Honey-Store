@@ -14,6 +14,7 @@ DEBUG = True
 # المضيفون المسموح لهم
 ALLOWED_HOSTS = []
 
+
 # التطبيقات المثبتة
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -33,7 +34,7 @@ INSTALLED_APPS = [
     'cart',
     'orders',
 ]
-
+AUTH_USER_MODEL = 'accounts.CustomUser'
 # الوسيطات (Middleware)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

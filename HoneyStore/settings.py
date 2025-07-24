@@ -1,19 +1,18 @@
 from pathlib import Path
 import os
 import cloudinary
+from decouple import config
 
 # المسار الأساسي للمشروع
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# مفتاح التشفير (⚠️ لا تستخدمه كما هو في الإنتاج)
-SECRET_KEY = 'django-insecure-k2czfp44glh9!(^^jy%no*&gagn#9movpim@(ov*p)&dipuku3'
-
-# وضع التطوير
-DEBUG = True
+# مفاتيح التكوين
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=True, cast=bool)
+ENV = config('ENV', default='dev')  # إما dev أو prod
 
 # المضيفون المسموح لهم
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']  # غيّرها لاحقًا حسب الحاجة
 
 # التطبيقات المثبتة
 INSTALLED_APPS = [
@@ -23,19 +22,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # خدمات Cloudinary
     'cloudinary',
     'cloudinary_storage',
-
-    # تطبيقات المشروع
     'catalog',
     'accounts',
     'cart',
     'orders',
 ]
 AUTH_USER_MODEL = 'accounts.CustomUser'
-# الوسيطات (Middleware)
+
+# الوسيطات
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -46,14 +42,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# ملف الروابط الرئيسي
 ROOT_URLCONF = 'HoneyStore.urls'
 
 # إعداد القوالب
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # مجلد القوالب العام
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,16 +61,27 @@ TEMPLATES = [
     },
 ]
 
-# إعداد WSGI
 WSGI_APPLICATION = 'HoneyStore.wsgi.application'
 
 # قاعدة البيانات
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if ENV == 'prod':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': config('DB_NAME'),
+            'USER': config('DB_USER'),
+            'PASSWORD': config('DB_PASSWORD'),
+            'HOST': config('DB_HOST'),
+            'PORT': config('DB_PORT', default=5432),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # التحقق من كلمات المرور
 AUTH_PASSWORD_VALIDATORS = [
@@ -92,25 +98,23 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# إعداد static
+# static
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# إعداد Cloudinary لتخزين ملفات media
+# إعداد Cloudinary
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dq4ntpesw',
-    'API_KEY': '873815379615733',
-    'API_SECRET': 'qk1vJ94gOOQ9pefYKM1CwKMDhbU',  # ⚠️ للتطوير فقط
+    'CLOUD_NAME': config('CLOUD_NAME'),
+    'API_KEY': config('API_KEY'),
+    'API_SECRET': config('API_SECRET'),
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# تفعيل إعداد Cloudinary عند تشغيل المشروع
 cloudinary.config(
     cloud_name=CLOUDINARY_STORAGE['CLOUD_NAME'],
     api_key=CLOUDINARY_STORAGE['API_KEY'],
     api_secret=CLOUDINARY_STORAGE['API_SECRET']
 )
 
-# المفتاح الافتراضي للحقول التلقائية
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

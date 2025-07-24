@@ -7,12 +7,12 @@ from decouple import config
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # مفاتيح التكوين
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY').strip("()")  # إزالة الأقواس
 DEBUG = config('DEBUG', default=True, cast=bool)
 ENV = config('ENV', default='dev')  # إما dev أو prod
 
 # المضيفون المسموح لهم
-ALLOWED_HOSTS = ['*']  # غيّرها لاحقًا حسب الحاجة
+ALLOWED_HOSTS = ['*']  # ← يفضل تعديله في الإنتاج
 
 # التطبيقات المثبتة
 INSTALLED_APPS = [
@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'cart',
     'orders',
 ]
+
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # الوسيطات
@@ -117,4 +118,5 @@ cloudinary.config(
     api_secret=CLOUDINARY_STORAGE['API_SECRET']
 )
 
+# المفتاح الافتراضي للحقول
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

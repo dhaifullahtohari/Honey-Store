@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تأكيد الطلب</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background-color: #fffaf2;
+      color: #1d1d1d;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 30px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #8B4513;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #d4a83f;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #b98d2e;
+    }
+
+    .success-icon {
+      font-size: 50px;
+      color: #28a745;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 20px;
+        padding: 20px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+{% include 'header.html' %}
+
+<div class="container">
+  <div class="success-icon">✔️</div>
+  <h2>تم تأكيد الطلب بنجاح!</h2>
+  <p>شكرًا لك، لقد تم إرسال طلبك وسنعمل على تجهيزه في أقرب وقت.</p>
+  <a href="{% url 'catalog:home' %}" class="btn">العودة للصفحة الرئيسية</a>
+</div>
+
+{% include 'footer.html' %}
+
+</body>
+</html>

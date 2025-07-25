@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Honey Store - الصفحة الرئيسية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
@@ -18,7 +19,7 @@
     }
 
     .hero h2 {
-      font-size: 40px;
+      font-size: 36px;
       margin-bottom: 15px;
       color: #1d1d1d;
     }
@@ -29,7 +30,7 @@
     }
 
     .btn {
-      margin: 10px;
+      margin: 10px 5px;
       background-color: #d4a83f;
       color: white;
       border: none;
@@ -59,12 +60,15 @@
 
     .product-card {
       background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      width: 250px;
-      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      width: 260px;
+      padding: 20px;
       text-align: center;
       transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .product-card:hover {
@@ -81,12 +85,49 @@
     .product-card h3 {
       margin: 10px 0 5px;
       color: #8b4513;
+      font-size: 20px;
     }
 
     .product-card .price {
       color: #d2691e;
       font-weight: bold;
       margin-top: 8px;
+      font-size: 16px;
+    }
+
+    .add-btn {
+      margin-top: 15px;
+      background-color: #8b4513;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 15px;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .add-btn:hover {
+      background-color: #6b3410;
+    }
+
+    @media (max-width: 768px) {
+      .product-card {
+        width: 90%;
+      }
+
+      .hero h2 {
+        font-size: 28px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
     }
   </style>
 </head>
@@ -111,6 +152,9 @@
           <img src="{{ product.image.url }}" alt="{{ product.name }}">
           <h3>{{ product.name }}</h3>
           <div class="price">{{ product.price }} ريال</div>
+          <a href="{% url 'cart:add_to_cart' product.id %}">
+            <button class="add-btn">أضف إلى السلة</button>
+          </a>
         </div>
       {% endfor %}
     </div>

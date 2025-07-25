@@ -6,13 +6,13 @@ from decouple import config
 # المسار الأساسي للمشروع
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# مفاتيح التكوين
-SECRET_KEY = config('SECRET_KEY').strip("()")
+# مفاتيح التكوين من .env
+SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
-ENV = config('ENV', default='prod')  # dev أو prod
+ENV = config('ENV', default='prod')  # prod أو dev
 
 # المضيفون المسموح لهم
-ALLOWED_HOSTS = ['*']  # ← يفضل وضع الدومين فقط في الإنتاج
+ALLOWED_HOSTS = ['*'] if DEBUG else ['your-production-domain.com']
 
 # التطبيقات المثبتة
 INSTALLED_APPS = [
@@ -22,10 +22,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'cloudinary',
     'cloudinary_storage',
 
-    # التطبيقات الخاصة بك
+    # التطبيقات الخاصة بالمشروع
     'catalog',
     'accounts',
     'cart',
@@ -48,7 +49,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'HoneyStore.urls'
 
-# القوالب
+# إعدادات القوالب
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -67,7 +68,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'HoneyStore.wsgi.application'
 
-# قاعدة البيانات
+# إعدادات قاعدة البيانات
 if ENV == 'prod':
     DATABASES = {
         'default': {
@@ -102,13 +103,13 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# ملفات static
+# إعدادات الملفات الثابتة (Static)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Cloudinary للإعلام (media)
+# إعدادات رفع الملفات - Cloudinary
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': config('CLOUD_NAME'),
     'API_KEY': config('API_KEY'),

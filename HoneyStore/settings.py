@@ -8,11 +8,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # مفاتيح التكوين
 SECRET_KEY = config('SECRET_KEY').strip("()")
-DEBUG = config('DEBUG', default=True, cast=bool)
-ENV = config('ENV', default='dev')  # إما dev أو prod
+DEBUG = config('DEBUG', default=False, cast=bool)
+ENV = config('ENV', default='prod')  # dev أو prod
 
 # المضيفون المسموح لهم
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']  # ← يفضل وضع الدومين فقط في الإنتاج
 
 # التطبيقات المثبتة
 INSTALLED_APPS = [
@@ -24,6 +24,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'cloudinary_storage',
+
+    # التطبيقات الخاصة بك
     'catalog',
     'accounts',
     'cart',
@@ -32,10 +34,10 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
-# الوسيطات
+# الوسطاء
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # ← مضافة لتقديم static
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # تقديم ملفات static
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -46,7 +48,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'HoneyStore.urls'
 
-# إعداد القوالب
+# القوالب
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -100,15 +102,13 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# static settings
+# ملفات static
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# لتقديم الملفات عبر whitenoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# إعداد Cloudinary
+# Cloudinary للإعلام (media)
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': config('CLOUD_NAME'),
     'API_KEY': config('API_KEY'),

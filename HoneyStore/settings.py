@@ -7,12 +7,12 @@ from decouple import config
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # مفاتيح التكوين
-SECRET_KEY = config('SECRET_KEY').strip("()")  # إزالة الأقواس
+SECRET_KEY = config('SECRET_KEY').strip("()")
 DEBUG = config('DEBUG', default=True, cast=bool)
 ENV = config('ENV', default='dev')  # إما dev أو prod
 
 # المضيفون المسموح لهم
-ALLOWED_HOSTS = ['*']  # ← يفضل تعديله في الإنتاج
+ALLOWED_HOSTS = ['*']
 
 # التطبيقات المثبتة
 INSTALLED_APPS = [
@@ -35,6 +35,7 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 # الوسيطات
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # ← مضافة لتقديم static
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -99,10 +100,13 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# static
+# static settings
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# لتقديم الملفات عبر whitenoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # إعداد Cloudinary
 CLOUDINARY_STORAGE = {

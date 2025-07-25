@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # توجيه روابط التطبيقات
+    path('admin/', admin.site.urls),
     path('', include('catalog.urls')),       # الصفحة الرئيسية والمنتجات
     path('accounts/', include('accounts.urls')),  # تسجيل الدخول والتسجيل
     path('cart/', include('cart.urls')),          # سلة المشتريات

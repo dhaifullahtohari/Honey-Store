@@ -12,7 +12,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ENV = config('ENV', default='prod')  # prod أو dev
 
 # المضيفون المسموح لهم
- ALLOWED_HOSTS = ['honey-store-85h2.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['honey-store-85h2.onrender.com', 'localhost', '127.0.0.1']
 
 
 # التطبيقات المثبتة
